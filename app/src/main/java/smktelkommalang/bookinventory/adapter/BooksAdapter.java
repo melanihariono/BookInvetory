@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,12 +21,11 @@ import smktelkommalang.bookinventory.model.Book;
  * Created by Melanihariono on 4/16/2017.
  */
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> implements Filterable {
     private List<Book> books;
     private List<Book> booksOri;
     private Context mContext;
     private Filter filter;
-
 
     public BooksAdapter(Context context, List<Book> bookList) {
         this.books = bookList;

@@ -9,11 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import smktelkommalang.bookinventory.R;
 import smktelkommalang.bookinventory.model.Book;
+
 
 public class BookFormActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
@@ -22,8 +23,8 @@ public class BookFormActivity extends AppCompatActivity {
     EditText editBookTitle;
     @BindView(R.id.editBookAuthor)
     EditText editBookAuthor;
-    @BindView(R.id.spinnerGenre)
-    EditText spinnerGenre;
+    @BindView(R.id.editGenre)
+    EditText editGenre;
     @BindView(R.id.editIsbn)
     EditText editISBN;
     @BindView(R.id.editPublishedYear)
@@ -34,13 +35,17 @@ public class BookFormActivity extends AppCompatActivity {
     Button btnSave;
     Book book;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_form);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //untuk view detail dari buku yang sudah ada
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -49,7 +54,7 @@ public class BookFormActivity extends AppCompatActivity {
             editPublishYear.setText(book.getPublished_year() + "");
             editBookAuthor.setText(book.getBook_author());
             editBookTitle.setText(book.getBook_title());
-            spinnerGenre.setText(book.getBook_genre());
+            editGenre.setText(book.getBook_genre());
             editSynopsis.setText(book.getBook_synopsis());
             btnSave.setEnabled(false);
             getSupportActionBar().setTitle(book.getBook_title());
@@ -66,7 +71,7 @@ public class BookFormActivity extends AppCompatActivity {
                     book.setBook_title(editBookTitle.getText().toString());
                     book.setBook_author(editBookAuthor.getText().toString());
                     book.setPublished_year(Integer.parseInt(editPublishYear.getText().toString()));
-                    book.setBook_genre(spinnerGenre.getText().toString());
+                    book.setBook_genre(editGenre.getText().toString());
                     book.setBook_synopsis(editSynopsis.getText().toString().equals("") ? "-" :
                             editSynopsis.getText().toString());
 
@@ -75,7 +80,7 @@ public class BookFormActivity extends AppCompatActivity {
                     setResult(RESULT_OK, i);
                     finish();
 
-                    Toast.makeText(BookFormActivity.this, "Data valid!", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
